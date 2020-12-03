@@ -89,51 +89,6 @@ const data = [
   }
 ];
 
-function articleMaker(articleObj){
-  //---div container---//
-  const divContainer = document.createElement('div');
-  divContainer.classList.add("article");
-  //---title---//
-  const title = document.createElement('h2');
-  title.textContent = articleObj.title;
-  //---date---//
-  const date = document.createElement('p');
-  date.classList.add("date");
-  date.textContent = articleObj.date;
-  //---first paragraph---//
-  const firstPara = document.createElement('p');
-  firstPara.classList.add("first-paragraph");
-  firstPara.textContent = articleObj.firstParagraph;
-  //---second paragraph---//
-  const secondPara = document.createElement('p');
-  secondPara.classList.add("second-paragraph");
-  secondPara.textContent = articleObj.secondParagraph;
-  //---third paragraph---//
-  const thirdPara = document.createElement('p');
-  thirdPara.classList.add("third-paragraph");
-  thirdPara.textContent = articleObj.thirdParagraph;
-  //---expand button---//
-  const expandButton = document.createElement('span');
-  expandButton.classList.add("expandButton");
-  expandButton.textContent = '+';
-  expandButton.addEventListener('click',(event)=>{
-    expandButton.classList.toggle("article-open")
-  });
-  //---append---//
-  divContainer.appendChild(title);
-  divContainer.appendChild(date);
-  divContainer.appendChild(firstPara);
-  divContainer.appendChild(secondPara);
-  divContainer.appendChild(thirdPara);
-  divContainer.appendChild(expandButton);
-  return divContainer;
-}
-
-data.forEach(article_object => {
-const articles = articleMaker(article_object);
-document.body.prepend(articles);
-})
-
 /*
   Step 1: Write a component called 'articleMaker' to create an article.
   Your component is a function that takes an article object as its only argument,
@@ -159,3 +114,40 @@ document.body.prepend(articles);
   Step 5: Try adding new article object to the data array. Make sure it is in the same format as the others.
   Refresh the page to see the new article.
 */
+
+function articleMaker(data) {
+  const container = document.createElement("div");
+  const heading = document.createElement("h2");
+  const date = document.createElement("p");
+  const para1 = document.createElement("p");
+  const para2 = document.createElement("p");
+  const para3 = document.createElement("p");
+  const button = document.createElement("span");
+
+  container.classList.add("article");
+  date.classList.add("date");
+  button.classList.add("expandButton");
+
+  heading.textContent = data.title;
+  date.textContent = data.date;
+  para1.textContent = data.firstParagraph;
+  para2.textContent = data.secondParagraph;
+  para3.textContent = data.thirdParagraph;
+  button.textContent = "+";
+
+  container.appendChild(heading);
+  container.appendChild(date);
+  container.appendChild(para1);
+  container.appendChild(para2);
+  container.appendChild(para3);
+  container.appendChild(button);
+
+  button.addEventListener("click", function(){
+    container.classList.toggle('article-open');
+  });
+  return container
+}
+
+data.forEach((item) => {
+  document.querySelector(".articles").appendChild(articleMaker(item))
+})

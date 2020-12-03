@@ -9,44 +9,37 @@ let menuItems = [
   'Log Out'
 ];
 
-function menuMaker (menu){
-const divMenuContainer = document.createElement('div');
-const ulContainer = document.createElement('ul');
-const li1 = document.createElement('li');
-const li2 = document.createElement('li');
-const li3 = document.createElement('li');
-const li4 = document.createElement('li');
-const li5 = document.createElement('li');
-const li6 = document.createElement('li');
-const menuButton = document.createElement('span');
+function menuMaker(array) {
+  const div = document.createElement("div");
+  const list = document.createElement("ul");
+  const listItems = document.createElement("li");
+  const menuArr = menuItems
+  
+  menuArr.forEach(item => {
+    const listItems = document.createElement("li");
+    listItems.textContent = item
+    list.appendChild(listItems)
+  });
+  
+  const menuButton = document.querySelector('.menu-button');
 
-divMenuContainer.classList.add("menu");
-menuButton.classList.add("menu-button");
+  div.classList.add('menu');
+  div.appendChild(list);
+  listItems.textContent = menuArr
 
-menuButton.addEventListener('click',(event)=>{
-  menuButton.classList.toggle("menu")
-});
+  menuButton.addEventListener('click', (event) => {
+      div.classList.toggle('menu--open');
+  });
 
-li1.textContent = menuItems[0];
-li2.textContent = menuItems[1];
-li3.textContent = menuItems[2];
-li4.textContent = menuItems[3];
-li5.textContent = menuItems[4];
-li6.textContent = menuItems[5];
-
-divMenuContainer.appendChild(ulContainer);
-ulContainer.appendChild(li1);
-ulContainer.appendChild(li2);
-ulContainer.appendChild(li3);
-ulContainer.appendChild(li4);
-ulContainer.appendChild(li5);
-ulContainer.appendChild(li6);
-
-return divMenuContainer
+  return div
 }
 
-const menus = menuMaker(menuItems);
-document.body.prepend(menus);
+const header = document.querySelector('.header');
+
+menuItems.map(menuItems =>{
+  const x = menuMaker(menuItems);
+  header.appendChild(x);
+});
 
 /* 
   Step 1: Write a component called 'menuMaker' to create a menu like the markup below:
